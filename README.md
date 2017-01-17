@@ -1,6 +1,6 @@
 # TSP_Genetic_Algorithm
 
-Genetic Algorithms for TSP and VRP
+# Genetic Algorithms for TSP and VRP
 Genetic Algorithms for solving the travelling salesman problem and the vehicle routing problem (TSP, VRP)
 This practical assignment requires to develop, using Python, an implementation of genetic algorithms for solving the Travelling Salesman Problem -- TSP and the Vehicle Routing Problem -- VRP (at least should include TSP)
 
@@ -8,7 +8,7 @@ Travelling Salesman Problem. Find the optimum itinerary for a salesman that need
 Vehicle Routing Problem. Find routes for shipping supplies to a set of customers having different demands. The routes should be adjusted to the available fleet of trucks in order to get minimum costs.
 
 https://www.cs.us.es/cursos/ia1-2011/trabajos/propuesta-gen-tsp.html
-First part: genetic operators
+# First part: genetic operators
 -	A full standard genetic algorithm should be implemented in Python, including several (at least one) permutation-specific operators. For example:
     -	Partially Mapped Crossover (PMX) (slides 41 and 42).
     -	Edge Crossover (slides 45, 46 and 47).
@@ -19,26 +19,26 @@ First part: genetic operators
     -	any other options found in alternative bibliography
        https://www.researchgate.net/figure/226665831_fig2_Figure-3-Cycle-crossover-CX
 
-Second part: Variants over the standard GA
+# Second part: Variants over the standard GA
 -	Modify the standard version of genetic algorithms developed in the previous step, by choosing only one of the following:
     1.	Genetic Algorithm with Varying Population Size
     2.	Cellular Genetic Algorithm
 
-Genetic Algorithm with Varying Population Size
+# Genetic Algorithm with Varying Population Size
 The idea is to introduce the concept of "ageing" into the population of chromosomes. Each individual will get a "life-expectancy" value, which directly depends on the fitness. Parents are selected randomly, without paying attention to their fitness, but at each step all chromosomes gain +1 to their age, and those reaching their life-expectancy are removed from the population. It is very important to design a good function calculating life-expectancy, so that better individuals survive during more generations, and therefore get more chances to be selected for crossover.
-Cellular Genetic Algorithm
+# Cellular Genetic Algorithm
 The idea is to introduce the concept of "neighbourhood" into the population of chromosomes (for instance, placing them into a grid-like arrangement), in such a way that each individual can only perform crossover with its direct neighbours.
 
 
-Third part: Experimentation
+# Third part: Experimentation
 -	Run over the same instances both the standard GA (from first part) as well as the modified version (from second part). Compare the       quality of their results and their performance. Due to the inherent randomness of GA, the experiments performed over each instance       should be run several times.
 
-Final part: Documentation
+# Final part: Documentation
 -	Prepare a pdf report explaining the details of the implementations developed:
 -	representation for genes and individuals, crossover and mutation operations, etc.
 -	modifications performed over the standard algorithm,instances considered, number of executions for each instance, showing average       statistics and best result found,bibliography.
 
-Evaluation Criteria
+# Evaluation Criteria
 The following aspects will be taken into account for the mark of the assignment:
 -	General style and clarity of the code
 -	Efficiency of the implementation, and quality of the results obtained
@@ -49,7 +49,7 @@ The following aspects will be taken into account for the mark of the assignment:
 
 
 
- Bibliography
+ # Bibliography
 -	Slides from unit 4.
 -	Chapters 2 and 3 of the book Introduction to Evolutionary Computing by A.E. Eiben and J.E. Smith. Chapter 2 is available at the         book's web page. Although full version of Chapter 3 might be useful for the assignment, it may be sufficient to check the slides         corresponding to this chapter that can be found at an online course using this textbook.
 -	It is also allowed to search the web for further references and/or related material. It is mandatory to include in the bibliography     all references used.
