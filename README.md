@@ -12,12 +12,12 @@ https://www.cs.us.es/cursos/ia1-2011/trabajos/propuesta-gen-tsp.html
 # First part: genetic operators
 -	A full standard genetic algorithm should be implemented in Python, including several (at least one) permutation-specific operators. For example:
     -	Partially Mapped Crossover (PMX) (slides 41 and 42).
-    -	Edge Crossover (slides 45, 46 and 47).
+    -	Edge Crossover (slides 45, 46 and 47).✔
     -	Order Crossover (slides 39 and 40). ✔
     -	Insert mutation (slide 34). ✔
     -	Swap mutation (slide 35). ✔
     -	Inverse mutation (slide 36). ✔
-    -	any other options found in alternative bibliography
+   	any other options found in alternative bibliography
        https://www.researchgate.net/figure/226665831_fig2_Figure-3-Cycle-crossover-CX
 
 # Second part: Variants over the standard GA

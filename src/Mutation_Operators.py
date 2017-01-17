@@ -19,8 +19,7 @@ def insert_mutation(c1):
     a = random.randint(0, len(c1) - 2)
     b = random.randint(a + 1, len(c1) - 1)
     c1.insert(a + 1, c1.pop(b))
-
-    print c1
+    return c1
 
 
 # Pick two alleles at random and swap their positions
@@ -37,3 +36,4 @@ def inverse_mutation(c1):
     b = random.randint(a + 1, len(c1) - 1)
 
     c1[a:b + 1] = c1[a:b + 1][::-1]
+    return c1
