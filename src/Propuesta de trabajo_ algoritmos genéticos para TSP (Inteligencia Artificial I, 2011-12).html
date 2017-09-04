@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0068)https://www.cs.us.es/cursos/ia1-2011/trabajos/propuesta-gen-tsp.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+ <title>Propuesta de trabajo: algoritmos genéticos para TSP (Inteligencia
+ Artificial I, 2011-12)</title>
+
+</head><body class="contenido" onload="cambiaMenu(3)">
+
+
+<h2>Algoritmos genéticos para resolución del problema del viajante</h2>
+
+<p>El objeto fundamental del trabajo es la implementación de algoritmos
+  genéticos dedicados a resolver instancias
+  del <a href="http://es.wikipedia.org/wiki/Problema_del_viajante">problema
+  del viajante</a> (usalmente conocido por sus siglas en
+  inglés: <b>TSP</b>, <i>traveling salesman problem</i>). <br><br>
+
+  Lo que sigue es un esquema general de un algoritmo genético:
+
+</p><ol>
+<li> <b>Inicializar</b> la población.
+</li><li> <b>Evaluar</b> cada individuo de la población.
+</li><li> Repetir hasta <b>Condición de Terminación</b>:
+<ul>
+<li> <b>Seleccionar</b> padres.
+</li><li> <b>Cruzar</b> pares de padres.
+</li><li> <b>Mutar</b> los hijos resultantes.
+</li><li> <b>Evaluar</b> los nuevos individuos
+</li><li> <b>Seleccionar</b> los individuos para formar la siguiente generación.
+</li></ul>
+</li><li> Devolver el mejor individuo de la última generación.
+</li></ol>
+
+
+Los dos algoritmos genéticos vistos en el 
+ <a href="http://www.cs.us.es/cursos/ia1/temas/tema-06.pdf">tema 6</a> siguen
+ un esquema similar a éste. Se trata de implementar una serie de varias
+ versiones concretas de las operaciones
+ de <b>Seleccionar</b>, <b>Cruzar</b>, <b>Mutar</b>,
+ <b>Evaluar</b> y <b>Condición de Terminación</b>, de manera que combinándolas
+ se obtengan distintos algoritmos genéticos. Estos algoritmos genéticos se
+ deberán probar sobre distintas instancias del problema del viajante,
+ mostrando el rendimiento obtenido.<br><br>
+
+ En el problema del viajante, los genes (o <i>alelos</i>) son las ciudades y
+ por tanto los cromosomas representan los distintos circuitos candidatos. Para
+ que un cromosoma represente un circuito válido, tiene que ser una permutación
+ de la lista de ciudades. Si se cruzan o mutan permutaciones con los
+ operadores estándar vistos en
+ el <a href="http://www.cs.us.es/cursos/ia1/temas/tema-06.pdf">tema 6</a>,
+ los cromosomas resultantes pueden no ser permutaciones y por tanto
+ no representar un circuito válido. La manera más común de evitar este problema
+ es diseñar operadores de cruce y mutación específicos para permutaciones, que
+ sean capaces de "transmitir" el material genético, pero obligando a que su
+ resultado sea una permutación. En este trabajo se propone implementar
+ algunos de ellos. <br><br>
+
+
+Lo que sigue son los distintos apartados en los que se divide esta propuesta:
+
+<ul>
+<li> Referencias de documentación útil y necesaria.
+</li><li> Operadores genéticos que se proponen.
+</li><li> Mecanismos de selección.
+</li><li> Otros detalles técnicos de los algoritmos
+</li><li> Banco de pruebas para los algoritmos implementados
+</li><li> Criterios de evaluación
+</li></ul>
+
+<h2>Documentación y consultas</h2>
+
+<ul>
+  <li> Transparencias
+  del  <a href="http://www.cs.us.es/cursos/ia1/temas/tema-06.pdf">tema 6</a>
+  de Inteligencia Artificial I.</li>
+
+  <li> Capítulos 2 y 3 del
+  libro <i><a href="http://www.cs.vu.nl/~gusz/ecbook/ecbook.html">Introduction
+  to Evolutionary Computing</a></i> de A.E. Eiben y
+  J.E. Smith. El <a href="http://www.cs.vu.nl/~gusz/ecbook/Eiben-Smith-Intro2EC-Ch2.pdf">Capítulo
+  2</a> está disponible en la web del libro. Todos los procedimientos
+  a implementar están descritos en el capítulo 3, aunque debería bastar con
+  consultar las
+  <a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas</a>
+  de ese capítulo que están disponibles en la web de un
+  <a href="http://www.cs.vu.nl/~gusz/ecbook/ecbook-course.html">curso</a> que
+  se imparte con dicho libro como texto. En cualquier caso, el libro está disponible para su consulta en el
+  departamento (contactar con el profesor José Luis Ruiz Reina si fuera
+  necesario). </li>
+
+  <li> Además, con una sencilla búsqueda en Internet se puede obtener
+  información adicional sobre los procedimientos que se piden implementar, si
+  fuera necesario </li>
+</ul>
+
+
+En el foro de la asignatura en WEBCT se ha creado un tema sobre esta propuesta
+de trabajo. <b>Cualquier mensaje de consulta sobre el mismo debería ser
+mandado, preferentemente, a través de este medio</b>.  
+
+
+<h2>Operadores genéticos</h2>
+
+Como se ha comentado anteriormente, en el caso de que los cromosomas
+(genotipo) deban de ser permutaciones de genes para representar de manera
+adecuada un elemento del problema original (fenotipo), entonces los operadores
+estándar de cruce y mutación no son adecuados. A continuación se propone implementar una serie de operadores de cruce y
+ mutación específicos de representaciones basadas en permutaciones. Son
+ operadores que actúan sobre permutaciones y obtienen nuevas permutaciones,
+ que "heredan" de alguna manera el "material genético" de aquéllas.  
+
+<h3>Operadores de cruce</h3>
+
+Se pide implementar en Lisp <b>al menos dos</b> de los siguientes operadores de cruce: 
+
+<ul> 
+<li> <i>Partially Mapped Crossover (PMX)</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas
+  41 y 42</a>).
+
+</li><li> <i>Edge Crossover</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas
+  45, 46 y 47</a>).
+
+</li><li> <i>Order Crossover</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas
+  39 y 40</a>).
+</li></ul>
+
+
+<h3>Operadores de mutación</h3>
+
+Se pide implementar en Lisp <b>al menos dos</b> de los siguientes operadores de mutación: 
+
+ 
+<ul>
+<li> <i>Insert mutation</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositiva
+  34</a>).
+
+</li><li> <i>Swap mutation</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositiva
+  35</a>).
+
+</li><li> <i>Inverse mutation</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositiva
+  36</a>).
+
+</li></ul>
+
+<h2>Mecanismos de selección</h2>
+
+En el el <a href="http://www.cs.us.es/cursos/ia1/temas/tema-06.pdf">tema 6</a>
+y en
+la <a href="http://www.cs.us.es/cursos/ia1/laboratorios/pr%C3%A1cticas/pr%C3%A1ctica-05.lisp">práctica
+  5</a> se ha visto un mecanismo de selección proporcional al valor de la
+función objetivo (<i>fitness</i>), implementado usando el método de ruleta probabilística. Se
+pide aquí  además implementar otros dos mecanismos de selección. 
+
+En concreto se pide implementar en Lisp <b>al menos dos</b> de los siguientes
+mecanismos de selección: 
+
+<ul>
+<li>El ya mencionado método selección por ruleta probabilística
+</li><li>Selección  basada en <i>ranking</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas
+  54 y 55</a>). En este método, cada cromosoma tiene una probabilidad de ser
+  seleccionado proporcional a su <i>ranking</i> dentro de la población. 
+
+</li><li>Selección basada en torneo  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositivas
+  57 y 58</a>). En este método, cada vez que se necesita seleccionar un
+  individuo, se extraen aleatoriamente <i>k</i> individuos de la población y
+  se elige el mejor de ellos.
+
+</li></ul>
+
+
+
+<h2>Cuestiones técnicas sobre los algoritmos</h2>
+
+Una vez implementados los métodos de cruce. mutación y selección anteriores,
+se pide combinarlos de diferentes maneras para <b>obtener distintas versiones de
+algoritmos genéticos</b>. Todas estas versiones deben de estar inspiradas en el
+esquema general de algoritmo genético mostrado al principio. Probar con <b>al
+  menos cuatro</b> versiones distintas.<br><br>
+
+Tener en cuenta además las siguientes cuestiones técnicas de la implementación: 
+
+<ul>
+
+<li> Obligatoriamente, se han de usar <b>vectores</b> (arrays) para
+  representar a los cromosomas.
+
+</li><li> Téngase en cuenta que si se usa el método de ruleta probabilística, se
+  favorecen aquellos cromosomas con mayor función objetivo. Puesto que TSP es
+  un problema de minimazación, en el caso de que se use ese método de
+  selección (sólo en ese caso), el TSP se deberá transformar en un
+  problema de minimización. Eso se puede hacer si se toma como función
+  objetivo la inersa de la original o, mejor aún, su diferencia con respecto
+  al máximo que puede tomar la función. <br> <br>
+
+  Otro problema del método de ruleta probabilística es que si hay mucha
+  diferencia entre el valor de un cromosoma y el resto, éste tiene asignada
+  una probabilidad muy grande respecto a los demás y rápidamente predomina las
+  poblaciones. Para evitar esto, se puede implementar (opcionalmente) el
+  método de escalado por <i>windowing</i>
+  (<a href="http://www.cs.vu.nl/~gusz/ecbook/slides/Genetic_Algorithms.ppt">diapositiva
+  52</a>).
+
+</li><li> Tener en cuenta que al crear la primera población de manera aleatoria,
+  éstos deben ser de partida permutaciones. En la <a href="http://www.cs.us.es/cursos/ia1/laboratorios/pr%C3%A1cticas/pr%C3%A1ctica-05.lisp">práctica
+  5</a> se indica cómo hacer esto (aunque hay que tener en cuenta que ahora se
+  pide con los cromosomas representados como vectores, y no como listas).
+
+</li><li> En cuanto a la condición de terminación, usar el criterio de parar cuando
+  se llegue a un número de generaciones predeterminado o a un número de
+  generaciones sin que se mejore el mejor de la generación (lo que ocurra
+  antes). 
+
+</li><li> Es conveniente, de cara a la presentación del trabajo, que cada algoritmo
+  tenga una versión "con salida" y otra "sin salida". En la versión con
+  salida, se escribiría por pantalla una linea por generación, mostrando el
+  mejor individuo (su fenotipo), su valor de función objetivo y la media de
+  valores de función objetivo de la generación. De esa manera podría verse la
+  evolución del algoritmo.
+
+ </li></ul>
+
+
+<h2>Banco de pruebas para los algoritmos implementados</h2>
+
+Los algoritmos genéticos que se implementen deben de servir para ser aplicados
+  a cualquier problema del viajante. A tal efecto, supondremos que el TSP
+  vendrá dado por una variable global <tt>*ciudades*</tt> que contiene la lista
+  de ciudades del problema y una función <tt>(distancia x y)</tt> que calcula
+  la distancia entre dos ciudades <tt>x</tt> e <tt>y</tt>. El algoritmo debe
+  estar implementado de manera que una vez definidas <tt>*ciudades*</tt>
+  y <tt>distancia</tt>, una ejecución del algoritmo trata de resolver el
+  problema del viajante correspondiente a esas ciudades y esa distancia entre
+  ellas. Además, el algoritmo necesita otros parámetros (como por ejemplo
+  porcentaje de padres, probabilidad de mutación,...) que deberá recibir como
+  argumentos de entrada. <br><br>
+
+
+Los algoritmos que se implementen deben ser probados sobre distintos problemas
+del viajante, con distintos parámetros de entrada. En particular, sobre distintas instancias del problema del
+cuadrado de puntos
+(ver <a href="http://www.cs.us.es/cursos/ia1/temas/tema-06.pdf">tema 6</a>) y
+sobre alguno de los problemas que aparecen
+en <a href="http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/">TSPLIB</a>.
+<br><br>
+
+ <a href="http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/">TSPLIB</a>
+ es una biblioteca de problemas del viajante. En el apartado <i>Symmetric
+ traveling salesman problem (TSP)</i> se proporcionan ficheros que describen
+ diversos TSPs (consultar
+ la <a href="http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/DOC.PS">documentación</a>
+ donde se describe el formato de los ficheros). El objetivo es tratar de
+ encontrar la ruta óptima para alguno de los problemas más sencillos (los de
+ menor número de ciudades).<br><br>
+
+ Elaborar un pequeño informe de los resultados obtenidos (puede hacerse en el
+ mismo fichero, como comentario al código).
+
+<h2>Criterios de evaluación</h2>
+
+Se valorá:
+
+<ul>
+  <li> Implementación de los algoritmos de manera modular (que permita
+  combinar fácilmente las distintas componentes del algoritmo genético)</li>
+  <li> Estilo de programación.</li>
+  <li> Eficiencia de los algoritmos y las
+  estructuras de datos usadas.</li>
+  <li> Calidad de los resultados obtenidos por los algoritmos
+  implementados</li>
+  <li> Calidad de la documentación. 
+</li></ul>
+
+
+
+  
+</body></html>
