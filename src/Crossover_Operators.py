@@ -8,9 +8,9 @@ import random
 
 
 def crossover(g_problem, c1, c2):
-    pos = random.randrange(1, g_problem.individuals_length - 1)
-    cr1 = c1[:pos] + c2[pos:]
-    cr2 = c2[:pos] + c1[pos:]
+    pos = random.randrange(1, g_problem.individual_length - 1)
+    cr1 = list(c1[:pos] + c2[pos:])
+    cr2 = list(c2[:pos] + c1[pos:])
     return [cr1, cr2]
 
 
@@ -19,7 +19,6 @@ def pmx_crossover(c1, c2):
 
 
 def order_crossover(c1, c2):
-    print('Order crossover')
     # c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     # c2 = [9, 3, 7, 8, 2, 6, 5, 1, 4]
     # random.shuffle(c1)
@@ -31,18 +30,13 @@ def order_crossover(c1, c2):
     r = [0] * len(c1)
     # copy the random sublist of c1 at same position in the list r
     r[a:b + 1] = c1[a:b + 1]
-    # print 'a: ', a, 'b: ', b
-    # print 'c1: ', c1
-    # print 'r:  ', r
 
-    r1 = c2[b + 1:] + c2[:b + 1]  # get the elements from c2 in order
-    # print 'c2: ', c2
-    # print 'r1: ', r1
+    r1 = list(c2[b + 1:] + c2[:b + 1])  # get the elements from c2 in order
+
     r1 = [x for x in r1 if x not in r]  # filter the elements to get only the elements that are not in r
-    # print 'r1:', r1
+
     r[b + 1:], r[:a] = r1[:len(r) - 1 - b:], r1[len(r) - 1 - b:]
-    # print r
-    print("solution", r)
+
     return r
 
 
@@ -96,25 +90,24 @@ def delete_current_from_table(table, current):
     return table
 
 
-def edge_crossover():
-    print('Edge crossover')
-    c1 = list(range(1, 10))
-    c2 = list(range(1, 10))
-    print(c1, c2)
-    random.shuffle(c1)
-    random.shuffle(c2)
-    c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    c2 = [9, 3, 7, 8, 2, 6, 5, 1, 4]
-    print('c1:', c1)
-    print('c2:', c2)
+def edge_crossover(c1, c2):
+    # c1 = list(range(1, 10))
+    # c2 = list(range(1, 10))
+    # print(c1, c2)
+    # random.shuffle(c1)
+    # random.shuffle(c2)
+    # c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    # c2 = [9, 3, 7, 8, 2, 6, 5, 1, 4]
+    # print('c1:', c1)
+    # print('c2:', c2)
     table = edge_crossover_table(c1, c2)
-    print('table: ', table)
+    # print('table: ', table)
 
-    element = random.randint(1, len(table))
-    offspring = [element]
+    element = random.choice(list(table.keys()))  # Select first randomly
+    partial_res = [element]
     choices = table[element]
     table = delete_current_from_table(table, element)
-    print('table: ', table)
+    # print('table: ', table)
 
     while table.keys():
         if choices[1]:
@@ -126,9 +119,7 @@ def edge_crossover():
 
         choices = table[element]
         table = delete_current_from_table(table, element)
-        offspring.append(element)
-        print(table)
-    print('offspring: ', offspring)
-
-
-
+        partial_res.append(element)
+        # print(table)
+    # print('offspring: ', offspring)
+    return partial_res

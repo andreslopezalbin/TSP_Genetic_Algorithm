@@ -16,24 +16,27 @@ def insert_mutation(c1):
     # c1 = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j']
     # random.shuffle(c1)
     # print c1
-    a = random.randint(0, len(c1) - 2)
-    b = random.randint(a + 1, len(c1) - 1)
-    c1.insert(a + 1, c1.pop(b))
-    return c1
+    cm = list(c1)
+    a = random.randint(0, len(cm) - 2)
+    b = random.randint(a + 1, len(cm) - 1)
+    cm.insert(a + 1, cm.pop(b))
+    return cm
 
 
 # Pick two alleles at random and swap their positions
 def swap_mutation(c1):
-    a = random.randint(0, len(c1) - 2)
-    b = random.randint(a + 1, len(c1) - 1)
-    c1[b], c1[a] = c1[a], c1[b]
-    return c1
+    cm = list(c1)
+    a = random.randint(0, len(cm) - 2)
+    b = random.randint(a + 1, len(cm) - 1)
+    cm[b], cm[a] = cm[a], cm[b]
+    return cm
 
 
 # Pick two alleles at random and then invert the substring between them
 def inverse_mutation(c1):
-    a = random.randint(0, len(c1) - 2)
-    b = random.randint(a + 1, len(c1) - 1)
+    cm = list(c1)
+    a = random.randint(0, len(cm) - 2)
+    b = random.randint(a + 1, len(cm) - 1)
 
-    c1[a:b + 1] = c1[a:b + 1][::-1]
-    return c1
+    cm[a:b + 1] = cm[a:b + 1][::-1]
+    return cm
