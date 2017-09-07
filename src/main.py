@@ -43,7 +43,7 @@ class City(object):  # Object to store the cities
         return self.province + ': ' + self.city
 
 
-def execute_genetic(Frame, cross, mutate, start_point, ngen, chr_size, prob_mutation, cross_ratio):
+def execute_genetic(Frame, cross, mutate, start_point, ngen, chr_size, prob_mutation, cross_ratio, cellular):
     chosen_path_index = Frame.listbox.curselection()
     if cross is 0 or mutate is 0 or len(chosen_path_index) is 0 or start_point is None:
         print('Please, select one Crossover opertator and one Mutation operator.\n')
@@ -61,7 +61,7 @@ def execute_genetic(Frame, cross, mutate, start_point, ngen, chr_size, prob_muta
 
         # problem_genetic, ngen, size, ratio_cross, prob_mutate, opt genetic_algorithm_t(sq_gen,3,min,20,10,0.7,0.1)
         thread1 = threading.Thread(
-            target=GA.genetic_algorithm_main(p_genetic, ngen, chr_size, cross_ratio, prob_mutation, min))
+            target=GA.genetic_algorithm_main(p_genetic, ngen, chr_size, cross_ratio, prob_mutation, min, cellular))
         thread1.start()
 
 
@@ -101,6 +101,7 @@ class myFrame(tk.Frame):
         self.grid(padx=20, pady=20)
         cross = tk.IntVar()
         mutate = tk.IntVar()
+        cellular = tk.IntVar()
 
         crosslabel = tk.Label(self, text='Crossover operators')
         r1 = tk.Radiobutton(self, text="Crossover", variable=cross, value=1, relief=tk.RIDGE, width=15)
@@ -114,7 +115,7 @@ class myFrame(tk.Frame):
         go = tk.Button(self, text="Go!",
                        command=lambda: execute_genetic(self, cross.get(), mutate.get(), self.box.current(),
                                                        generations.current(), chr_size.current(), mutation.get(),
-                                                       cross_ratio.get()))
+                                                       cross_ratio.get(), cellular.get()))
 
         self.textbox = tk.Text(self, wrap='word', bg="black", fg="white", relief=tk.RIDGE)
         vertscroll = tk.Scrollbar(self)
@@ -171,6 +172,9 @@ class myFrame(tk.Frame):
         cross_ratio['values'] = (0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
         cross_ratio.current(7)
         cross_ratio.grid(column=8, row=7)
+
+        cross_cellular_genetic = tk.Checkbutton(self, text='Cellular Genetic Algorithm', variable=cellular)
+        cross_cellular_genetic.grid(column=6, row=5)
 
     def pathWidget(self):
         start_point_label = tk.Label(self, text='Start point')

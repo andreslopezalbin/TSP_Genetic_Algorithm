@@ -1,0 +1,50 @@
+city;city_ascii;lat;lng;pop;country;iso2;iso3;province
+Marbella;Marbella;36.51661989;-4.88333012;153069.5;Spain;ES;ESP;Andalucía
+Linares;Linares;38.08332013;-3.633354738;49549.5;Spain;ES;ESP;Andalucía
+Algeciras;Algeciras;36.12671215;-5.466530363;106687.5;Spain;ES;ESP;Andalucía
+Almeria;Almeria;36.83034751;-2.429991497;152032.5;Spain;ES;ESP;Andalucía
+Malaga;Malaga;36.7204059;-4.419999228;539381.5;Spain;ES;ESP;Andalucía
+Jaén;Jaen;37.77039349;-3.799985394;92909;Spain;ES;ESP;Andalucía
+Huelva;Huelva;37.25037355;-6.929949383;119732;Spain;ES;ESP;Andalucía
+Cadiz;Cadiz;36.53499086;-6.225005332;153932.5;Spain;ES;ESP;Andalucía
+Granada;Granada;37.16497825;-3.585011435;313269;Spain;ES;ESP;Andalucía
+Cordoba;Cordoba;37.87999921;-4.770003704;300512;Spain;ES;ESP;Andalucía
+Seville;Seville;37.40501528;-5.980007366;957533;Spain;ES;ESP;Andalucía
+Zaragoza;Zaragoza;41.65000165;-0.889982138;548955.5;Spain;ES;ESP;Aragón
+Arrecife;Arrecife;28.96904923;-13.53783283;47182.5;Spain;ES;ESP;Canarias
+Santa Cruz de Tenerife;Santa Cruz de Tenerife;28.46997927;-16.25000065;279125.5;Spain;ES;ESP;Canarias
+Las Palmas;Las Palmas;28.09997601;-15.42999902;364718;Spain;ES;ESP;Canarias
+Santander;Santander;43.3804645;-3.799985394;196025.5;Spain;ES;ESP;Cantabria
+Leon;Leon;42.57997072;-5.570006553;135014;Spain;ES;ESP;Castilla y León
+Salamanca;Salamanca;40.97040489;-5.670000449;160456.5;Spain;ES;ESP;Castilla y León
+Burgos;Burgos;42.35039817;-3.67996688;150251;Spain;ES;ESP;Castilla y León
+Valladolid;Valladolid;41.65000165;-4.750030763;299373.5;Spain;ES;ESP;Castilla y León
+Albacete;Albacete;39.00034426;-1.869999839;127597;Spain;ES;ESP;Castilla-La Mancha
+Toledo;Toledo;39.86703554;-4.016716351;53878.5;Spain;ES;ESP;Castilla-La Mancha
+Guadalajara;Guadalajara;40.63370709;-3.166587363;51906.5;Spain;ES;ESP;Castilla-La Mancha
+Mataro;Mataro;41.53995668;2.45002071;149826;Spain;ES;ESP;Cataluña
+Tarragona;Tarragona;41.12036989;1.249990599;107957.5;Spain;ES;ESP;Cataluña
+Barcelona;Barcelona;41.38329958;2.183370319;3250797.5;Spain;ES;ESP;Cataluña
+Ceuta;Ceuta;35.88898378;-5.30699935;78674;Spain;ES;ESP;Ceuta
+Madrid;Madrid;40.40002626;-3.683351686;2808718.5;Spain;ES;ESP;Comunidad de Madrid
+Pamplona;Pamplona;42.82000775;-1.649987428;233855.5;Spain;ES;ESP;Comunidad Foral de Navarra
+Alicante;Alicante;38.3512199;-0.483640721;296345;Spain;ES;ESP;Comunidad Valenciana
+Castello;Castello;39.97041424;-0.05000757;176360;Spain;ES;ESP;Comunidad Valenciana
+Valencia;Valencia;39.48501752;-0.400012046;806652;Spain;ES;ESP;Comunidad Valenciana
+Merida;Merida;38.91200402;-6.337997512;52423;Spain;ES;ESP;Extremadura
+Badajoz;Badajoz;38.8804291;-6.96997278;115638.5;Spain;ES;ESP;Extremadura
+Santiago de Compostela;Santiago de Compostela;42.88289797;-8.541091351;87721;Spain;ES;ESP;Galicia
+La Coruña;La Coruna;43.32997662;-8.419987632;306614.5;Spain;ES;ESP;Galicia
+Ourense;Ourense;42.32996014;-7.869995363;113095;Spain;ES;ESP;Galicia
+Vigo;Vigo;42.22001853;-8.729994549;335848.5;Spain;ES;ESP;Galicia
+Palma;Palma;39.57426271;2.65424597;319951;Spain;ES;ESP;Islas Baleares
+Logrono;Logrono;42.47036501;-2.429991497;123918.5;Spain;ES;ESP;La Rioja
+Melilla;Melilla;35.30000165;-2.950011435;107384;Spain;ES;ESP;Melilla
+Vitoria;Vitoria;42.84998008;-2.669976849;199109.5;Spain;ES;ESP;País Vasco
+San Sebastián;San Sebastian;43.32039064;-1.979993125;270498;Spain;ES;ESP;País Vasco
+Bilbao;Bilbao;43.24998151;-2.929986818;614369.5;Spain;ES;ESP;País Vasco
+Gijon;Gijon;43.53001609;-5.670000449;303712;Spain;ES;ESP;Principado de Asturias
+Oviedo;Oviedo;43.35049217;-5.829990683;223524.5;Spain;ES;ESP;Principado de Asturias
+Lorca;Lorca;37.68856386;-1.698511598;56541.5;Spain;ES;ESP;Región de Murcia
+Cartagena;Cartagena;37.60042971;-0.980028322;166276.5;Spain;ES;ESP;Región de Murcia
+Murcia;Murcia;37.9799931;-1.12996749;368322.5;Spain;ES;ESP;Región de Murcia

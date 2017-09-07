@@ -1,9 +1,8 @@
 import random
 import Utils
+import time
 import Crossover_Operators as cr_op
 import Mutation_Operators as mu_op
-
-
 
 """ Lo que sigue es un esquema general de un algoritmo genético:
 
@@ -65,8 +64,32 @@ def initial_population(prob_g, size):
 def crossover_parents(prob_g, parents):
     kids = []
     if prob_g.crossover == 1:
+        for j in range(0, len(parents)):
+            a, b = random.sample(parents, 2)
+            kids.append(cr_op.crossover(prob_g, a, b))
+        return kids
+
+    elif prob_g.crossover == 2:
+        for j in range(0, len(parents)):
+            a, b = random.sample(parents, 2)
+            kids.append(cr_op.order_crossover(a, b))
+            kids.append(cr_op.order_crossover(b, a))
+        return kids
+    else:
+        for j in range(0, len(parents)):
+            a, b = random.sample(parents, 2)
+            kids.append(cr_op.edge_crossover(a, b))
+            kids.append(cr_op.edge_crossover(b, a))
+        return kids
+
+
+def crossover_parents_cellular_genetic(prob_g, parents):
+    kids = []
+    if prob_g.crossover == 1:
         for j in range(0, len(parents), 2):
-            kids.extend(cr_op.crossover(prob_g, *parents[j:j + 2]))
+            a = parents[j]
+            b = parents[j + 1]
+            kids.append(cr_op.crossover(prob_g, a, b))
         return kids
 
     elif prob_g.crossover == 2:
@@ -83,26 +106,6 @@ def crossover_parents(prob_g, parents):
             kids.append(cr_op.edge_crossover(a, b))
             kids.append(cr_op.edge_crossover(b, a))
 
-        return kids
-
-
-def crossover_parents_cellular_genetic(prob_g, parents):
-    kids = []
-    if prob_g.crossover == 1:
-        for j in range(0, len(parents), 2):
-            kids.extend(cr_op.crossover(prob_g, *parents[j:j + 2]))
-        return kids
-
-    elif prob_g.crossover == 2:
-        for j in range(0, len(parents), 2):
-            a = parents[j]
-            b = parents[j + 1]
-            kids.append(cr_op.order_crossover(a, b))
-            kids.append(cr_op.order_crossover(b, a))
-        return kids
-    else:
-        for j in range(0, len(parents), 2):
-            kids.append(cr_op.edge_crossover(*parents[j:j + 2]))
         return kids
 
 
@@ -142,28 +145,34 @@ def tournament_selection(problem_genetic, population, n, k, opt):
             for _ in range(n)]
 
 
-def new_generation(problem_genetic, opt, population, n_parents, n_direct, prob_mutate):
+def new_generation(problem_genetic, opt, population, n_parents, n_direct, prob_mutate, cellular):
     k = 3
     parents = tournament_selection(problem_genetic, population, n_parents, k, opt)
-    kids = crossover_parents(problem_genetic, parents)
+    if cellular:
+        kids = crossover_parents_cellular_genetic(problem_genetic, parents)
+    else:
+        kids = crossover_parents(problem_genetic, parents)
     direct_surv = tournament_selection(problem_genetic, population, n_direct, k, opt)
     sol = mutate_individuals(problem_genetic, kids + direct_surv, prob_mutate)
     return sol
 
 
 # genetic_algorithm_t(sq_gen,3,min,20,10,0.7,0.1)
-def genetic_algorithm_main(problem_genetic, ngen, size, ratio_cross, prob_mutate, opt):
+def genetic_algorithm_main(problem_genetic, ngen, size, ratio_cross, prob_mutate, opt, cellular):
+    start = time.time()
     population = initial_population(problem_genetic, size)
     n_parents = round(size * float(ratio_cross))
     n_parents = (n_parents if n_parents % 2 == 0 else n_parents - 1)
     n_direct = size - n_parents
 
     for _ in range(ngen):  # halting condition, number of iterations
-        population = new_generation(problem_genetic, opt, population, n_parents, n_direct, float(prob_mutate))
+        population = new_generation(problem_genetic, opt, population, n_parents, n_direct, float(prob_mutate), cellular)
 
     best_chr = opt(population, key=lambda x: (fitness(problem_genetic, x)))
     best_distance = fitness(problem_genetic, best_chr)
     best_chr.insert(0, problem_genetic.start_point)
     best_chr.insert(len(best_chr), problem_genetic.start_point)
-    print([str(i) + "-" + str(city) for i, city in enumerate(best_chr)], best_distance)
+    end = time.time()
+    total_time = end - start
+    print([str(i) + "-" + str(city) for i, city in enumerate(best_chr)], ', ' + str(best_distance) + ' km', total_time)
     Utils.print_map(best_chr)
