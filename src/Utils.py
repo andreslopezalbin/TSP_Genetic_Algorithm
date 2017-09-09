@@ -18,18 +18,15 @@ from django.template.loader import get_template
 from django.template import Context
 
 
-def haversine(gen1, gen2):
-    """
-    Calculate the great circle distance between two points
-    on the earth (specified in decimal degrees)
-    """
-    lon1 = float(gen1.longitude)
-    lat1 = float(gen1.latitude)
-    lon2 = float(gen2.longitude)
-    lat2 = float(gen2.latitude)
-    # convert decimal degrees to radians
+def haversine(city1, city2):
+
+    lon1 = float(city1.longitude)
+    lat1 = float(city1.latitude)
+    lon2 = float(city2.longitude)
+    lat2 = float(city2.latitude)
+
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
-    # haversine formula
+
     dlon = lon2 - lon1
     dlat = lat2 - lat1
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2

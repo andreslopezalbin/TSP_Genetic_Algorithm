@@ -37,13 +37,6 @@ class Problem_Genetic():
         self.start_point = start_point
         self.individual_length = len(genes)
 
-    def mutation(self, c, prob):
-        cm = list(c)  # we make a copy
-        for i in range(len(cm)):
-            if random.random() < prob:
-                cm[i] = random.choice(c)
-        return cm
-
 
 def fitness(prob_g, gen):
     # check min path and penalize if it doesnt begin and finish in start_point
@@ -157,7 +150,6 @@ def new_generation(problem_genetic, opt, population, n_parents, n_direct, prob_m
     return sol
 
 
-# genetic_algorithm_t(sq_gen,3,min,20,10,0.7,0.1)
 def genetic_algorithm_main(problem_genetic, ngen, size, ratio_cross, prob_mutate, opt, cellular):
     start = time.time()
     population = initial_population(problem_genetic, size)

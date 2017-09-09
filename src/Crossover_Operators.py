@@ -19,9 +19,7 @@ def pmx_crossover(c1, c2):
 
 
 def order_crossover(c1, c2):
-    # c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    # c2 = [9, 3, 7, 8, 2, 6, 5, 1, 4]
-    # random.shuffle(c1)
+
     a = random.randint(0, len(c1) - 2)  # get two random index a < b
     b = random.randint(a + 1, len(c1) - 1)
 
@@ -60,9 +58,6 @@ def counter_choices(elements):
 
 def edge_crossover_table(c1, c2):
     table = {}
-    # c1 = range(1, 10)
-    # c2 = range(1, 10)
-    # random.shuffle(c1), random.shuffle(c2)
 
     for i in range(0, len(c1)):
         element = c1[i]
@@ -91,17 +86,8 @@ def delete_current_from_table(table, current):
 
 
 def edge_crossover(c1, c2):
-    # c1 = list(range(1, 10))
-    # c2 = list(range(1, 10))
-    # print(c1, c2)
-    # random.shuffle(c1)
-    # random.shuffle(c2)
-    # c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    # c2 = [9, 3, 7, 8, 2, 6, 5, 1, 4]
-    # print('c1:', c1)
-    # print('c2:', c2)
+
     table = edge_crossover_table(c1, c2)
-    # print('table: ', table)
 
     element = random.choice(list(table.keys()))  # Select first randomly
     partial_res = [element]

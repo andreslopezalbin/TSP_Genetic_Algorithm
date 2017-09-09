@@ -12,10 +12,6 @@ def mutation(g_problem, c, prob):
 # Pick two allele values at random and move the second to follow the first, shifting the
 # rest along to accommodate
 def insert_mutation(c1):
-    # c1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    # c1 = ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'i', 'j']
-    # random.shuffle(c1)
-    # print c1
     cm = list(c1)
     a = random.randint(0, len(cm) - 2)
     b = random.randint(a + 1, len(cm) - 1)

@@ -28,19 +28,19 @@ class StdRedirector(object):
 
 
 class City(object):  # Object to store the cities
-    province = ''
+    community = ''
     city = ''
     latitude = 0.0
     longitude = 0.0
 
-    def __init__(self, province, city, latitude, longitude):
-        self.province = province
+    def __init__(self, community, city, latitude, longitude):
+        self.community = community
         self.city = city
         self.latitude = latitude
         self.longitude = longitude
 
     def __str__(self):
-        return self.province + ': ' + self.city
+        return self.community + ': ' + self.city
 
 
 def execute_genetic(Frame, cross, mutate, start_point, ngen, chr_size, prob_mutation, cross_ratio, cellular):
@@ -201,22 +201,6 @@ class myFrame(tk.Frame):
         self.listbox.grid(column=4, row=4, rowspan=5)
 
 
-        # self.v = tk.StringVar()
-        # self.checkbuttons = tk.Text(self, width=30, height=15)
-        # vertscrollcheckbuttons = tk.Scrollbar(self)
-        # vertscrollcheckbuttons.config(command=self.checkbuttons.yview)
-        # self.checkbuttons.config(yscrollcommand=vertscrollcheckbuttons.set)
-        # self.checkbuttons.grid(column=4, row=3, rowspan=3)
-        # vertscrollcheckbuttons.grid(column=5, row=3, rowspan=3, sticky=tk.N + tk.S)
-        # cb = []
-        # for i in range(len(cities)):
-        #     v = tk.StringVar()
-        #     cb.append(tk.Checkbutton(self, text=cities[i].__str__(), variable=v))
-        #     cb[-1].v = v
-        #     self.checkbuttons.window_create("end", window=cb)
-        #     # self.checkbuttons.insert("end", cb)  # to force one checkbox per line
-        #     self.checkbuttons.insert("end", "\n")  # to force one checkbox per line
-        # self.checkbuttons.config(state=tk.DISABLED)
 
 
 class SelectFileView(tk.Frame):
